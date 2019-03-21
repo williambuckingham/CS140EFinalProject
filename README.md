@@ -60,7 +60,7 @@ Program to demonstrate timer interrupts on the raspberry pi. Code taken from CS1
 
 The code will compile on mac os with gcc hooked up to a raspberry pi A+. I have not tried running this code on other systems. Once your r/pi is hooked up, you can run "make" and this will compile the code and also start program execution.<br />
 
-### How to build
+### Explanation
 
 **1. Set up Timer Interrupts**<br />
 Consult the documentation in CS140E lab7 to see how the timer interrupt code was written (https://github.com/dddrrreee/cs140e-win19/tree/master/labs/lab7-interrupts).<br />

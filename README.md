@@ -66,7 +66,7 @@ The code will compile on mac os with gcc hooked up to a raspberry pi A+. I have 
 1. Set up Timer Interrupts<br />
 2. Catch load/store instructions in int handler<br />
 3. Parse instruction for memory address<br />
-This is one of the more involved and trickier asspects of the code. I define a number of structs in mem-checker.h that help with parsing the actual 32 bit ARM instruction. If you want to write your own structs or just not use mine then you should look in the ARM v6 reference manual (http://cs107e.github.io/readings/armv6.pdf) at chapter A3 where the various instruction encodings are defined. I use bitfields to represent the encodings as this is significantly simpler than using bit masks.<br />
+This is one of the more involved and trickier asspects of the code. I define a number of structs in mem-checker.h that help with parsing the actual 32 bit ARM instruction. If you want to write your own structs or just not use mine then you should look in the ARM v6 reference manual (http://cs107e.github.io/readings/armv6.pdf) at chapter A3 where the various instruction encodings are defined. I use bitfields to represent the encodings as this is significantly simpler than using bit masks as the instruction encodings are fairly complicated. It is important to fully understand what each of the bits means when parsing an instruction as a simple load/store can in fact take on many different forms! <br />
 
 4. Set up heap allocator and shadow memory<br />
 5. Determine if memory accesses legal<br />

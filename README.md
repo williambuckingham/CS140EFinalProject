@@ -25,7 +25,6 @@ Defines a queue structure. Code taken from CS140E Lab 9 : Threads by Dawson Engl
 Make file to run program.<br />
 <br />
 <br />
-<br />
 **timer-int**<br />
 <br />
 *cstart.c*<br />
@@ -65,6 +64,7 @@ The code will compile on mac os with gcc hooked up to a raspberry pi A+. I have 
 
 **1. Set up Timer Interrupts**<br />
 Consult the documentation in CS140E lab7 to see how the timer interrupt code was written (https://github.com/dddrrreee/cs140e-win19/tree/master/labs/lab7-interrupts).<br />
+
 **2. Catch load/store instructions in int handler**<br />
 In interrupt handling code, pass old pc into interrupt handler c code. Then you can look at some of the bits to check if it is a load or store. <br />
 

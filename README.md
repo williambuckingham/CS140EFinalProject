@@ -73,11 +73,11 @@ The code will compile on mac os with gcc hooked up to a raspberry pi A+. I have 
 
 ### Future extensions and ideas
 
-1. Process more ARM instructions than just load/store immediate offset. The structs for parsing register offset and load/store multiples are already defined in mem-checker.h, you would just need to extend the code in mem-checker.c to also parse these other kinds of load store instructions to get the memory address being accessed. <br />
+1. Process more ARM instructions than just load/store immediate offset. The structs for parsing register offset and load/store multiples are already defined in mem-checker.h, you would just need to extend the code in mem-checker.c to also parse these other kinds of load store instructions to get the memory address being accessed. 
 <br />
-2. Add backtrace : print out not just the program counter of where the memory corruption occures but use this and the symbol table to figure out the function in which the memory corruption occurred and print this out too.<br />
+2. Add backtrace : print out not just the program counter of where the memory corruption occures but use this and the symbol table to figure out the function in which the memory corruption occurred and print this out too.
 <br />
-3. More sophisticated memory loss tracking. In the code that checks if all memory was freed, actually trace back from shadow memory to real memory to figure out what areas of memory were lost, how many contiguous chunks/start address/maybe even where they were accessed, in terms of pc/function name. <br />
+3. More sophisticated memory loss tracking. In the code that checks if all memory was freed, actually trace back from shadow memory to real memory to figure out what areas of memory were lost, how many contiguous chunks/start address/maybe even where they were accessed, in terms of pc/function name.
 <br />
 4. Add more sophisticated tracking of heap allocated memory, in terms of the scope of that memory. Right now I assume that any allocated memory is a legal access but this makes tracking down illegal accesses from out of scope impossible. I would need to track more data in kmalloc about who/where it was allocated, to figure out if a memory access to heap memory was in scope.<br />
 

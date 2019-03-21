@@ -65,13 +65,22 @@ The code will compile on mac os with gcc hooked up to a raspberry pi A+. I have 
 
 1. Set up Timer Interrupts<br />
 2. Catch load/store instructions in int handler<br />
+In interrupt handling code, pass old pc into interrupt handler c code. Then you can look at some of the bits to check if it is a load or store. <br />
+
 3. Parse instruction for memory address<br />
 This is one of the more involved and trickier asspects of the code. I define a number of structs in mem-checker.h that help with parsing the actual 32 bit ARM instruction. If you want to write your own structs or just not use mine then you should look in the ARM v6 reference manual (http://cs107e.github.io/readings/armv6.pdf) at chapter A3 where the various instruction encodings are defined. I use bitfields to represent the encodings as this is significantly simpler than using bit masks as the instruction encodings are fairly complicated. It is important to fully understand what each of the bits means when parsing an instruction as a simple load/store can in fact take on many different forms! <br />
 
 4. Set up heap allocator and shadow memory<br />
+I set up a shadow memory at a 4 MB offset from the main heap. This offset is somewhat arbitrary but also the test cases I run do not allocate more than 4 MB to the heap so this should be fine. Inside my kmalloc function I then mark allocated memory at address 0xabcd by writing a magic number for num allocated bytes to 0xabcd + 4MB. It is important to zero initialize this shadow memory as otherwise you may have garbage (including magic numbers!) written to this chunk of your memory that doesn't get cleaned up and will mess with your results on multiple runs of the program. In my kfree function, I simply rezero the relevant data in shadow memory that was previously set to magic number, to mark it as now free.<br />
+
 5. Determine if memory accesses legal<br />
+This is perhaps the most interesting part and offers the most opportunities to flesh out a useful and inciteful memory checker. I currently just check if the memory access was to a malloced area by looking in the shadow memory but you could do something more sophisticated and keep some kind of data structure that knows where different alloc'd parts of memory are in scope and not in scope. My current approach thinks of heap data as global and so any access is legal, of course a more advance memory checker would be able to see where there were accesses to out of scope memory.<br />
+
 6. Determine how many bytes of memory lost<br />
+To determine if any bytes were lost/not freed, you can simply loop over the shadow memory and count the number of bytes still set to the magic number, which indicates they were alloced but were never freed and then log this.<br />
+
 7. Log results to the console<br />
+I define a struct that holds data about each memory corruption and then a global queue of memory corruption data structures which I append new found corruptions to. At the end then I can just log this data out. I currently store the PC of the instruction making a corruption, the bad memory address being accessed and whether it was a read or write. It could also be cool to add a function name field to this struct which would allow you to then print out the function name of the offending instruction.<br />
 
 ### Future extensions and ideas
 

@@ -6,7 +6,7 @@ show_on_index: true
 
 ### Overview
 
-This is my final project for CS 140E : OS Design and Implementation on r/pi A+. It is a simple memory corruption checker built in c to detect memory corruption in programs running on the r/pi A+. At present, it can identify accessing and writing to non-allocated memory on the heap and also gives a summary of leaked memory that is allocated and then not freed.
+This is my final project for CS 140E : OS Design and Implementation on r/pi A+. It is a simple memory corruption checker built in c to detect memory corruption in programs running on the r/pi A+. At present, it can identify accessing and writing to non-allocated memory on the heap and also gives a summary of leaked memory that is allocated and then not freed. The timer interrupt code in timer-int is substantially taken from code written by Dawson Engler for CS 140E.
 
 ### Files
 
